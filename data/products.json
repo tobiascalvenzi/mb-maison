@@ -1,0 +1,20 @@
+[
+  {
+    "id": "sku-runner",
+    "name": "Stain-Resistant Table Runner",
+    "price": 4900,
+    "currency": "EUR",
+    "image": "/runner.jpg",
+    "description": "Coated linen, handmade in Italy. Elegant and practical.",
+    "stripePaymentLink": "https://buy.stripe.com/test_xxx"
+  },
+  {
+    "id": "sku-placemats",
+    "name": "Elegant Placemats Set",
+    "price": 3500,
+    "currency": "EUR",
+    "image": "/placemats.jpg",
+    "description": "Set of 4 coated linen placemats. Sustainable luxury for your table.",
+    "stripePaymentLink": "https://buy.stripe.com/test_yyy"
+  }
+]
