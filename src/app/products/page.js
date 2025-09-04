@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { addToCart } from '../../../lib/cart';
+import Link from 'next/link';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -24,16 +24,6 @@ export default function Products() {
     fetchProducts();
   }, []);
 
-  const handleAddToCart = (productId) => {
-    addToCart(productId);
-    // You could add a toast notification here
-    alert('Product added to cart!');
-  };
-
-  const handleBuyNow = (stripeLink) => {
-    window.open(stripeLink, '_blank');
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -46,9 +36,9 @@ export default function Products() {
     <div className="min-h-screen py-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h1 className="text-4xl lg:text-5xl font-serif font-bold text-zinc-900 mb-6">Our Collection</h1>
+          <h1 className="text-4xl lg:text-5xl font-serif font-bold text-zinc-900 mb-6">Customize Your Placemats</h1>
           <p className="text-xl text-zinc-600 max-w-3xl mx-auto leading-relaxed">
-            Discover our handcrafted Italian textile accessories, designed with sustainability and elegance in mind.
+            Choose your shape, material, colors, and monogram.
           </p>
         </div>
 
@@ -64,25 +54,24 @@ export default function Products() {
               </div>
               <div className="p-8">
                 <h3 className="text-xl font-serif font-semibold text-zinc-900 mb-3">{product.name}</h3>
-                <p className="text-zinc-600 mb-6 leading-relaxed">{product.description}</p>
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-2xl font-serif font-bold text-zinc-900">
-                    €{(product.price / 100).toFixed(2)}
+                    From €{((product.basePrice||0) / 100).toFixed(2)}
                   </span>
                 </div>
                 <div className="flex space-x-3">
-                  <button
-                    onClick={() => handleAddToCart(product.id)}
-                    className="flex-1 bg-zinc-900 text-white py-3 px-4 rounded-xl hover:bg-zinc-800 transition-all font-medium"
+                  <Link
+                    href={`/products/${product.slug}`}
+                    className="flex-1 bg-zinc-900 text-white py-3 px-4 rounded-xl hover:bg-zinc-800 transition-all font-medium text-center"
                   >
-                    Add to Cart
-                  </button>
-                  <button
-                    onClick={() => handleBuyNow(product.stripePaymentLink)}
-                    className="flex-1 border border-zinc-900 text-zinc-900 py-3 px-4 rounded-xl hover:bg-zinc-900 hover:text-white transition-all font-medium"
+                    Customize
+                  </Link>
+                  <Link
+                    href={`/products/${product.slug}`}
+                    className="flex-1 border border-zinc-900 text-zinc-900 py-3 px-4 rounded-xl hover:bg-zinc-900 hover:text-white transition-all font-medium text-center"
                   >
                     Buy Now
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

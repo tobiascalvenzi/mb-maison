@@ -53,8 +53,12 @@ export default function Cart() {
 
   const getTotalPrice = () => {
     return cart.reduce((total, item) => {
+      if (item.custom) {
+        const qty = item.qty || 1;
+        return total + (item.price || 0) * qty;
+      }
       const product = getProductDetails(item.id);
-      return total + (product ? product.price * item.quantity : 0);
+      return total + (product ? (product.basePrice || 0) * (item.quantity || 1) : 0);
     }, 0);
   };
 
@@ -98,9 +102,44 @@ export default function Cart() {
         <div className="bg-white ring-1 ring-zinc-200/60 rounded-xl overflow-hidden">
           <div className="p-8">
             {cart.map((item) => {
+              if (item.custom) {
+                const product = products.find(p => p.image === item.image) || { name: item.name, image: item.image };
+                const opts = item.options || {};
+                const summaryParts = [];
+                if (opts.materialName) summaryParts.push(opts.materialName);
+                if (opts.colorName) summaryParts.push(opts.colorName);
+                if (opts.borderName) summaryParts.push(`Border ${opts.borderName}`);
+                if (opts.monogramOn && opts.monogramText) summaryParts.push(`Monogram '${opts.monogramText}', ${opts.monogramFont}`);
+                const qty = item.qty || 1;
+                return (
+                  <div key={item.id} className="flex items-center py-6 border-b border-zinc-200/60 last:border-b-0">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-20 h-20 object-cover rounded-xl mr-6"
+                    />
+                    <div className="flex-1">
+                      <h3 className="text-lg font-serif font-semibold text-zinc-900">{item.name}</h3>
+                      <p className="text-zinc-600 text-sm mb-2">{summaryParts.join(' • ')}</p>
+                      <div className="flex items-center">
+                        <span className="text-zinc-500 mr-6">Quantity: {qty}</span>
+                        <span className="text-lg font-serif font-semibold text-zinc-900">
+                          €{(((item.price||0) * qty) / 100).toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleRemoveFromCart(item.id)}
+                      className="text-zinc-400 hover:text-zinc-600 transition-colors p-2"
+                      aria-label="Remove item from cart"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                );
+              }
               const product = getProductDetails(item.id);
               if (!product) return null;
-              
               return (
                 <div key={item.id} className="flex items-center py-6 border-b border-zinc-200/60 last:border-b-0">
                   <img
@@ -110,11 +149,10 @@ export default function Cart() {
                   />
                   <div className="flex-1">
                     <h3 className="text-lg font-serif font-semibold text-zinc-900">{product.name}</h3>
-                    <p className="text-zinc-600 text-sm mb-2">{product.description}</p>
                     <div className="flex items-center">
                       <span className="text-zinc-500 mr-6">Quantity: {item.quantity}</span>
                       <span className="text-lg font-serif font-semibold text-zinc-900">
-                        €{((product.price * item.quantity) / 100).toFixed(2)}
+                        €{(((product.basePrice||0) * (item.quantity||1)) / 100).toFixed(2)}
                       </span>
                     </div>
                   </div>
@@ -145,19 +183,29 @@ export default function Cart() {
               >
                 Clear Cart
               </button>
-              
-              {cart.length === 1 ? (
-                <button
-                  onClick={() => handleCheckout(getProductDetails(cart[0].id).stripePaymentLink)}
-                  className="flex-1 bg-zinc-900 text-white py-3 px-6 rounded-xl hover:bg-zinc-800 transition-all font-medium"
-                >
-                  Checkout
-                </button>
-              ) : (
-                <div className="flex-1 bg-zinc-200 text-zinc-600 py-3 px-6 rounded-xl text-center font-medium">
-                  Please purchase items individually for now
-                </div>
-              )}
+              {(() => {
+                const nonCustomItems = cart.filter(i => !i.custom);
+                const customItems = cart.filter(i => i.custom);
+                if (nonCustomItems.length === 1 && customItems.length === 0) {
+                  const only = nonCustomItems[0];
+                  const prod = getProductDetails(only.id);
+                  if (prod && prod.stripePaymentLink) {
+                    return (
+                      <button
+                        onClick={() => handleCheckout(prod.stripePaymentLink)}
+                        className="flex-1 bg-zinc-900 text-white py-3 px-6 rounded-xl hover:bg-zinc-800 transition-all font-medium"
+                      >
+                        Checkout
+                      </button>
+                    );
+                  }
+                }
+                return (
+                  <div className="flex-1 bg-zinc-200 text-zinc-600 py-3 px-6 rounded-xl text-center font-medium">
+                    For personalized items, we’ll confirm by email
+                  </div>
+                );
+              })()}
             </div>
           </div>
         </div>

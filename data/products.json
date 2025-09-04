@@ -1,20 +1,40 @@
 [
   {
     "id": "sku-runner",
-    "name": "Stain-Resistant Table Runner",
-    "price": 4900,
+    "slug": "runner",
+    "name": "Placemat – Classic",
+    "image": "/products/runner.jpg",
+    "basePrice": 3900,
     "currency": "EUR",
-    "image": "/runner.jpg",
-    "description": "Coated linen, handmade in Italy. Elegant and practical.",
-    "stripePaymentLink": "https://buy.stripe.com/test_xxx"
+    "stripePaymentLink": "https://buy.stripe.com/test_xxx",
+    "shapes": ["rectangle", "scallop", "oval"],
+    "materials": [
+      {"id":"linen-natural","name":"Natural Linen","add":0},
+      {"id":"linen-coated","name":"No-Stain Linen","add":400},
+      {"id":"felt","name":"Felt","add":-200},
+      {"id":"denim","name":"Denim","add":0}
+    ],
+    "monogramPrice": 300,
+    "borderDiffPrice": 150,
+    "defaultColor": "ivory",
+    "defaultBorder": "charcoal"
   },
   {
     "id": "sku-placemats",
-    "name": "Elegant Placemats Set",
-    "price": 3500,
+    "slug": "double-scallop",
+    "name": "Placemat – Double Scallop",
+    "image": "/products/placemats.jpg",
+    "basePrice": 4900,
     "currency": "EUR",
-    "image": "/placemats.jpg",
-    "description": "Set of 4 coated linen placemats. Sustainable luxury for your table.",
-    "stripePaymentLink": "https://buy.stripe.com/test_yyy"
+    "stripePaymentLink": "https://buy.stripe.com/test_yyy",
+    "shapes": ["scallop"],
+    "materials": [
+      {"id":"linen-natural","name":"Natural Linen","add":0},
+      {"id":"linen-coated","name":"No-Stain Linen","add":400}
+    ],
+    "monogramPrice": 300,
+    "borderDiffPrice": 150,
+    "defaultColor": "sand",
+    "defaultBorder": "ivory"
   }
 ]

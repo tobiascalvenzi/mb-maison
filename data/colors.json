@@ -1,0 +1,9 @@
+[
+  { "id": "ivory", "name": "Ivory", "hex": "#F8F6EF" },
+  { "id": "sand", "name": "Sand", "hex": "#E5D8C6" },
+  { "id": "charcoal", "name": "Charcoal", "hex": "#333333" },
+  { "id": "navy", "name": "Navy", "hex": "#0B1F3B" },
+  { "id": "sage", "name": "Sage", "hex": "#9CB89D" },
+  { "id": "terracotta", "name": "Terracotta", "hex": "#C9653B" }
+]
+

@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,18 +24,19 @@ export const metadata = {
 };
 
 const Header = () => (
-  <header className="bg-white border-b border-zinc-200/60 shadow-sm">
+  <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-zinc-200">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
-      <div className="flex justify-between items-center py-8">
-        <Link href="/" className="text-2xl font-serif font-bold text-zinc-900 hover:text-zinc-700 transition-colors">
-          MB Maison
+      <div className="flex justify-between items-center py-4">
+        <Link href="/" className="flex items-center">
+          <Image src="/logo-grey.png" alt="MB Maison" width={120} height={40} className="h-8 w-auto" priority />
         </Link>
-        <nav className="hidden md:flex space-x-12">
-          <Link href="/" className="uppercase tracking-wide text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">Home</Link>
-          <Link href="/products" className="uppercase tracking-wide text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">Products</Link>
-          <Link href="/about" className="uppercase tracking-wide text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">About</Link>
-          <Link href="/contact" className="uppercase tracking-wide text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">Contact</Link>
-          <Link href="/cart" className="uppercase tracking-wide text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">Cart</Link>
+        <nav className="hidden md:flex items-center gap-8">
+          <Link href="/" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">Home</Link>
+          <Link href="/products" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">Products</Link>
+          <Link href="/customize" className="text-sm font-medium text-zinc-900 hover:text-white hover:bg-zinc-900 px-3 py-1.5 rounded-xl border border-zinc-900 transition-all">Customize</Link>
+          <Link href="/about" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">About</Link>
+          <Link href="/contact" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">Contact</Link>
+          <Link href="/cart" className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors">Cart</Link>
         </nav>
         <div className="md:hidden">
           <Link href="/cart" className="text-sm border border-zinc-900 text-zinc-900 px-4 py-2 rounded-xl hover:bg-zinc-900 hover:text-white transition-all">
@@ -64,7 +66,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-50 text-zinc-900 min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-zinc-800 min-h-screen flex flex-col`}
       >
         <Header />
         <main className="flex-grow">
