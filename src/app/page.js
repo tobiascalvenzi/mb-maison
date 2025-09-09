@@ -47,16 +47,16 @@ export default function Page() {
     <main>
       {/* 1) Big centered logo + tagline */}
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 pt-12 pb-16 text-center">
+        <div className="max-w-7xl mx-auto px-6 pt-4 pb-2 text-center">
           <Image
             src="/logo-grey.png"
             alt="MB Maison"
             width={800}
             height={220}
-            className="mx-auto h-auto w-[220px] sm:w-[300px] md:w-[380px] lg:w-[460px]"
+            className="mx-auto h-auto w-[170px] sm:w-[230px] md:w-[290px] lg:w-[340px]"
             priority
           />
-          <p className="mt-6 text-lg sm:text-xl md:text-2xl text-zinc-700 max-w-3xl mx-auto">
+          <p className="mt-4 mb-10 text-lg sm:text-xl md:text-2xl text-zinc-700 max-w-3xl mx-auto">
             Italian craftsmanship, sustainability, and elegance for your home.
           </p>
         </div>
